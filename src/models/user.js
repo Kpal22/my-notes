@@ -67,9 +67,6 @@ const getError = error => {
         error = { status: 409, message: 'Email Already Exists!' };
     } else if (errorMsg.includes('invalid updates')) {
         error = { status: 400, message: 'Invalid Updates!' };
-    } else {
-        logger.errorObj(error);
-        error = { status: 500, message: 'Server Error!' };
     }
     return error;
 }
@@ -132,18 +129,23 @@ userSchema.methods.updatePassword = async function ({ oldPassword, newPassword }
     }
 }
 
-userSchema.methods.setAvatar = async function ({buffer} = {}) {
+userSchema.methods.setAvatar = async function ({ buffer } = {}) {
     try {
-        const user = this;
-        user.avatar = await sharp(buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-        await user.save();
-        return;
+
+        if (buffer) {
+            const user = this;
+            user.avatar = await sharp(buffer).resize({ width: 250, height: 250 }).png().toBuffer();
+            await user.save();
+            return;
+        } else {
+            throw new Error('invalid updates');
+        }
     } catch (err) {
         throw getError(err);
     }
 }
 
-userSchema.statics.findByCredentials = async function (email, password) {
+userSchema.statics.findByCredentials = async function ({ email, password } = {}) {
     const user = await this.findOne({ email });
     if (user && password && await bcrypt.compare(password, user.password)) {
         return user;

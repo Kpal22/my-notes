@@ -25,7 +25,6 @@ noteSchema.methods.toJSON = function () {
     const noteJson = note.toObject();
     noteJson.id = noteJson._id;
     delete noteJson._id;
-    delete noteJson.createdAt;
     delete noteJson.owner;
     delete noteJson.__v;
     return noteJson;

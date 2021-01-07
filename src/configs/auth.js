@@ -3,11 +3,6 @@ const jwt = require('jsonwebtoken');
 const logger = require('../logger');
 const validator = require('validator');
 
-//For Dev Next Line replaced with \n in env var
-// const privateKEY = process.env.PRIVATE_KEY;
-// const publicKEY = process.env.PUBLIC_KEY;
-
-//For Prod Next Line replaced with [n] in env var, for heroku
 const privateKEY = process.env.PRIVATE_KEY.replace(/\[n\]/g, '\n');
 const publicKEY = process.env.PUBLIC_KEY.replace(/\[n\]/g, '\n');
 

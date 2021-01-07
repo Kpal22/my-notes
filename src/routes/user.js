@@ -143,9 +143,7 @@ router.post('/logout/all', auth, (req, res) => {
  *              500:
  *                  description: Internal Server Error
  */
-router.get('/', auth, (req, res) => {
-    res.send(req.user);
-});
+router.get('/', auth, (req, res) => res.send(req.user));
 
 /**
  * @swagger
@@ -298,20 +296,16 @@ const upload = multer({
  *              500:
  *                  description: Internal Server Error
  */
-router.post('/avatar', auth, async (req, res, next) => {
-    try {
-        upload(req, res, async err => {
-            if (err) {
-                next({ status: 400, message: err.message });
-            } else {
-                await req.user.setAvatar(req.file);
-                res.send('Avatar saved successfully');
-            }
-        });
-    } catch (err) {
-        next(err);
-    }
-});
+router.post('/avatar', auth, async (req, res, next) =>
+    upload(req, res, async err => {
+        if (err) {
+            next({ status: 400, message: err.message });
+        } else {
+            await req.user.setAvatar(req.file);
+            res.send('Avatar saved successfully');
+        }
+    })
+);
 
 /**
  * @swagger
@@ -330,12 +324,6 @@ router.post('/avatar', auth, async (req, res, next) => {
  *              500:
  *                  description: Internal Server Error
  */
-router.get('/avatar', auth, async (req, res, next) => {
-    try {
-        res.set('Content-Type', 'image/png').send(req.user.avatar);
-    } catch (err) {
-        next(err);
-    }
-})
+router.get('/avatar', auth, async (req, res) => res.set('Content-Type', 'image/png').send(req.user.avatar));
 
 module.exports = router;

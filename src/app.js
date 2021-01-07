@@ -3,7 +3,6 @@ const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
-const logger = require('./logger');
 const userRouter = require('./routes/user');
 const noteRouter = require('./routes/note');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -48,6 +47,4 @@ const options = {
 app.use('/api-docs', serve, setup(swaggerJsdoc(options)));
 app.get('/', (_req, res) => res.redirect('/api-docs'));
 
-const port = process.env.PORT;
-
-app.listen(port, () => logger.success('Server started on port ' + port));
+module.exports = app;
