@@ -4,8 +4,12 @@
   "description": "Notes taking app",
   "main": "app.js",
   "scripts": {
-    "start": "node --trace-warnings src/app.js",
-    "dev": "env-cmd nodemon --trace-warnings src/app.js -e *"
+    "start": "node --trace-warnings src/index.js",
+    "dev": "env-cmd nodemon --trace-warnings src/index.js -e *",
+    "test": "env-cmd ./test/.env jest --watch --runInBand"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "Kaustav Pal",
@@ -26,7 +30,9 @@
     "validator": "^13.5.2"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.6",
-    "env-cmd": "^10.1.0"
+    "supertest": "^6.0.1"
   }
 }
