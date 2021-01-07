@@ -6,12 +6,12 @@
   "scripts": {
     "start": "node --trace-warnings src/index.js",
     "dev": "env-cmd nodemon --trace-warnings src/index.js -e *",
-    "test": "jest --runInBand"
+    "test": "jest --no-cache --detectOpenHandles --runInBand --force-exit"
   },
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true,
-    "testTimeout": 60000
+    "testTimeout": 15000
   },
   "keywords": [],
   "author": "Kaustav Pal",

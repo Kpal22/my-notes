@@ -10,10 +10,17 @@ describe('Testing routes/user.js for Error', () => {
     const password = 'P@ssw0rd';
     const VALID_USER = { name, email, password };
 
-    test('Signup should get Server Error 500', async () =>
-        await request.post('/users/signup').send(VALID_USER).expect(500));
+    test('Signup should get Server Error 500', async () => {
+        await expect(require('../../../src/db/mongoose')).rejects.toEqual(expect.any(Error));
+        await request.post('/users/signup').send(VALID_USER).expect(500);
+    });
+        
 
-    test('Logout should get Server Error 500', async () =>
-        await request.post('/users/logout').set('Authorization', `Bearer ${auth.genToken({ _id: '507f1f77bcf86cd799439011' })}`).send().expect(500));
+    test('Logout should get Server Error 500', async () => {
+        await expect(require('../../../src/db/mongoose')).rejects.toEqual(expect.any(Error));
+        await request.post('/users/logout').set('Authorization', `Bearer ${auth.genToken({ _id: '507f1f77bcf86cd799439011' })}`).send().expect(500)
+    });
+
+    // afterAll(async () => app.close());
 
 });

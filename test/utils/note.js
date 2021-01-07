@@ -62,8 +62,8 @@ describe('Testing utils/note.js', () => {
         await expect(Note.findById(note._id)).resolves.not.toBeNull();
     });
 
-    afterAll(async () => {
-        await User.deleteMany({});
-        await Note.deleteMany({});
-    });
+    // afterAll(async () => {
+    //     await User.deleteMany({});
+    //     await Note.deleteMany({});
+    // });
 });

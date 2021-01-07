@@ -131,6 +131,6 @@ describe('Testing models/user.js', () => {
         await expect(User.findByCredentials(VALID_USER)).rejects.toEqual(expect.any(Error));
     });
 
-    afterAll(async () => await User.deleteMany({}));
+    // afterAll(async () => await User.deleteMany({}));
 
 });

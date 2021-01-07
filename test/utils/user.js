@@ -33,5 +33,5 @@ describe('Testing utils/user.js', () => {
         await expect(userUtil.login({ email, password: 'Invalid Password' })).rejects.toEqual(expect.objectContaining({ 'status': 401 }));
     });
 
-    afterAll(async () => await User.deleteMany({}));
+    // afterAll(async () => await User.deleteMany({}));
 });

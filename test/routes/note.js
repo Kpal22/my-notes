@@ -87,8 +87,10 @@ describe('Testing routes/note.js', () => {
         await request.delete('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send().expect(401);
     });
 
-    afterAll(async () => {
-        await User.deleteMany({});
-        await Note.deleteMany({});
-    });
+    // afterAll(async () => {
+    //     await User.deleteMany({});
+    //     await Note.deleteMany({});
+    // });
+
+    // afterAll( async () => app.close());
 });
