@@ -1,13 +1,13 @@
 {
   "name": "my-notes",
   "version": "1.0.0",
-  "description": "Notes taking app",
+  "description": "Notes taking app, Backend service",
   "main": "app.js",
   "scripts": {
     "start": "node --trace-warnings src/index.js",
     "dev": "env-cmd nodemon --trace-warnings src/index.js -e *",
     "postinstall": "node envGen",
-    "test": "jest --no-cache --detectOpenHandles --runInBand --force-exit"
+    "test": "env-cmd -f ./test/.env jest --no-cache --detectOpenHandles --runInBand --force-exit"
   },
   "jest": {
     "testEnvironment": "node",
