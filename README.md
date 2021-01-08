@@ -7,17 +7,26 @@
 ![](https://img.shields.io/snyk/vulnerabilities/github/Kpal22/my-notes.svg?style=popout)
 
 My-Notes application where user can signup/login and create/update/delete notes
+
 This is a Backend service created using Express.js
 
-# Installation
+## Installation
 
 Before downloading the code, make sure Node.js and Mongodb is installed locally. Cloud mongodb will also work.
 
 Run `npm install` in root of this project. It will automatically create the ***.env***.
 
+If required, run `node envGen` in root to generate ***.env*** for both _src_ and _test_.
+
+## Test
+
+Make requried changes in `./test/.env` accordingly before running the test.
+
 Run `npm test` to run the test. Codecoverage will be shown on terminal, and also can be found in ***coverage*** directory.
 
-make changes in ***.env*** file accordingly.
+## Run
+
+Make requried changes in `/.env` accordingly before running the application.
 
 Run `npm run dev` to run it with nodemon, in Dev mode.
 
