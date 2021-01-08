@@ -1,6 +1,5 @@
 # my-notes
 
-![](http://img.shields.io/npm/v/my-notes.svg?style=flat-popout)
 [![Build Status](https://travis-ci.com/Kpal22/my-notes.svg?style=popout)](https://travis-ci.com/Kpal22/my-notes)
 [![codecov](https://codecov.io/gh/Kpal22/my-notes/branch/main/graph/badge.svg?)](https://codecov.io/gh/Kpal22/my-notes)
 ![](https://img.shields.io/github/last-commit/Kpal22/my-notes.svg?style=popout)
