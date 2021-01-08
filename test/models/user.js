@@ -59,6 +59,9 @@ describe('Testing models/user.js', () => {
     test('User Model should give error for invalid credential', async () => {
         await new User(VALID_USER).save();
         await expect(User.findByCredentials({ email, password: 'Invalid Password' })).rejects.toEqual(expect.any(Error));
+        await expect(User.findByCredentials({ email })).rejects.toEqual(expect.any(Error));
+        await expect(User.findByCredentials({ password })).rejects.toEqual(expect.any(Error));
+        await expect(User.findByCredentials()).rejects.toEqual(expect.any(Error));
     });
 
     test('User Model should update name of valid user', async () => {
@@ -130,7 +133,5 @@ describe('Testing models/user.js', () => {
         await user.remove();
         await expect(User.findByCredentials(VALID_USER)).rejects.toEqual(expect.any(Error));
     });
-
-    // afterAll(async () => await User.deleteMany({}));
 
 });

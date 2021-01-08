@@ -65,9 +65,13 @@ const getError = error => {
         error = { status: 404, message: 'No Data Found!' };
     } else if (errorMsg.includes('duplicate key')) {
         error = { status: 409, message: 'Email Already Exists!' };
-    } else if (errorMsg.includes('invalid updates')) {
+    } else {
         error = { status: 400, message: 'Invalid Updates!' };
     }
+
+    // else if (errorMsg.includes('invalid updates')) {
+    //     error = { status: 400, message: 'Invalid Updates!' };
+    // }
     return error;
 }
 
@@ -89,25 +93,24 @@ userSchema.methods.removeAuthToken = function (logoutToken) {
     } else {
         user.tokens = [];
     }
-    user.save().catch(error => logger.errorObj(error, 'Error while log out'));
+    user.save();
 }
 
 userSchema.methods.updateUser = async function ({ name, email } = {}) {
     try {
         if (!name && !email) {
             throw new Error('invalid updates');
-        }
-        const user = this;
-        if (name && name !== user.name) {
-            user.name = name;
-        }
-        if (email && email.toLowerCase !== user.email) {
-            user.email = email;
-        }
-        if (user.isModified('name') || user.isModified('email')) {
+        } else {
+            const user = this;
+            if (name && name !== user.name) {
+                user.name = name;
+            }
+            if (email && email.toLowerCase !== user.email) {
+                user.email = email;
+            }
             await user.save();
+            return user;
         }
-        return user;
     } catch (err) {
         throw getError(err);
     }

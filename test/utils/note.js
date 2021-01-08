@@ -22,8 +22,10 @@ describe('Testing utils/note.js', () => {
         await expect(noteUtil.save(VALID_NOTE, user._id)).resolves.toEqual(expect.objectContaining(VALID_NOTE));
     });
 
-    test('Note Util should not save a note with invalid title', async () => {
+    test('Note Util should not save any invalid note', async () => {
         const user = await new User(VALID_USER).save();
+        await expect(noteUtil.save()).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
+        await expect(noteUtil.save(undefined, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
         await expect(noteUtil.save({ title: 12, content }, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
     });
 
@@ -37,13 +39,14 @@ describe('Testing utils/note.js', () => {
         await expect(noteUtil.update(note._id, updatedNote, user._id)).resolves.toEqual(expect.objectContaining(updatedNote));
     });
 
-    test('Note Util should not update a note with invalid updates', async () => {
+    test('Note Util should not update any note with invalid updates', async () => {
         const user = await new User(VALID_USER).save();
         const note = await noteUtil.save(VALID_NOTE, user._id);
-        await expect(noteUtil.update(note._id, {title: 12}, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
+        await expect(noteUtil.update(note._id, { title: 12 }, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
         await expect(noteUtil.update(note._id, {}, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
+        await expect(noteUtil.update(note._id, undefined, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
         await expect(noteUtil.update(undefined, {}, user._id)).rejects.toEqual(expect.objectContaining({ 'status': 400 }));
-        await expect(noteUtil.update(note._id, {title: 12}, undefined)).rejects.toEqual(expect.objectContaining({ 'status': 404 }));
+        await expect(noteUtil.update(note._id, { title: 12 }, undefined)).rejects.toEqual(expect.objectContaining({ 'status': 404 }));
     });
 
     test('Note Util should remove a note with valid id & owner', async () => {
@@ -62,8 +65,4 @@ describe('Testing utils/note.js', () => {
         await expect(Note.findById(note._id)).resolves.not.toBeNull();
     });
 
-    // afterAll(async () => {
-    //     await User.deleteMany({});
-    //     await Note.deleteMany({});
-    // });
 });

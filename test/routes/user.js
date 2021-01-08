@@ -188,11 +188,6 @@ describe('Testing routes/user.js', () => {
         await request.get('/users/avatar').set('Authorization', `Bearer ${response.body.token}`).expect(401);
     });
 
-
-    // afterAll(async () => await User.deleteMany({}));
-
-    // afterAll( async () => app.close());
-
 });
 
 const timeDelay = () => {

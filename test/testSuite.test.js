@@ -22,5 +22,6 @@ require('./utils/user');
 require('./utils/note');
 require('./routes/user');
 require('./routes/note');
+require('./app');
 
 

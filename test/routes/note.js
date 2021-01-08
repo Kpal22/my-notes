@@ -39,6 +39,8 @@ describe('Testing routes/note.js', () => {
         const note = await request.post('/notes').set('Authorization', `Bearer ${response.body.token}`).send(VALID_NOTE).expect(201);
         const fetched = await request.get('/notes').query(note.body).set('Authorization', `Bearer ${response.body.token}`).send().expect(200);
         expect(note.body).toEqual(fetched.body[0]);
+        await request.post('/notes').set('Authorization', `Bearer ${response.body.token}`).send(VALID_NOTE).expect(201);
+        await request.get('/notes').query({ limit: 5, skip: 1, sortBy: 'title', order: 'desc' }).set('Authorization', `Bearer ${response.body.token}`).send().expect(200);
     });
 
     test('Should not get any note without valid token', async () => {
@@ -54,10 +56,10 @@ describe('Testing routes/note.js', () => {
     test('Should update a valid note', async () => {
         const response = await request.post('/users/signup').send(VALID_USER).expect(201);
         const note = await request.post('/notes').set('Authorization', `Bearer ${response.body.token}`).send(VALID_NOTE).expect(201);
-        let updated = await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send({title: 'New Note'}).expect(200);
+        let updated = await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send({ title: 'New Note' }).expect(200);
         expect(note.body.title).not.toEqual(updated.body.title);
         expect(note.body.content).toEqual(updated.body.content);
-        updated = await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send({content: 'New Content'}).expect(200);
+        updated = await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send({ content: 'New Content' }).expect(200);
         expect(note.body.title).not.toEqual(updated.body.title);
         expect(note.body.content).not.toEqual(updated.body.content);
     });
@@ -67,7 +69,7 @@ describe('Testing routes/note.js', () => {
         const note = await request.post('/notes').set('Authorization', `Bearer ${response.body.token}`).send(VALID_NOTE).expect(201);
         await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send().expect(400);
         await request.post('/users/logout').set('Authorization', `Bearer ${response.body.token}`).send().expect(200);
-        await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send({title: 'New Note'}).expect(401);
+        await request.patch('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send({ title: 'New Note' }).expect(401);
     });
 
     test('Should delete a note', async () => {
@@ -87,10 +89,4 @@ describe('Testing routes/note.js', () => {
         await request.delete('/notes/' + note.body.id).set('Authorization', `Bearer ${response.body.token}`).send().expect(401);
     });
 
-    // afterAll(async () => {
-    //     await User.deleteMany({});
-    //     await Note.deleteMany({});
-    // });
-
-    // afterAll( async () => app.close());
 });

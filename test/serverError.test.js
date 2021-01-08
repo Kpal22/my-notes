@@ -1,4 +1,4 @@
-process.env.MONGODB_URL = 'mongodb://127.0.0.1:00000/my-notes-test';
+// process.env.MONGODB_URL = 'mongodb://127.0.0.1:00000/my-notes-test';
 const { generateKeyPairSync } = require('crypto');
 const { publicKey, privateKey } = generateKeyPairSync('rsa', {
     modulusLength: 4096,

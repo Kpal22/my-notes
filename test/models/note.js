@@ -58,8 +58,4 @@ describe('Testing models/note.js', () => {
         await expect(Note.findById(note._id)).resolves.toBeNull();
     });
 
-    // afterAll(async () => {
-    //     await User.deleteMany({});
-    //     await Note.deleteMany({});
-    // });
 });
