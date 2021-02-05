@@ -12,8 +12,11 @@
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true,
-    "coverageReporters": ["text", "html"],
-    "testTimeout": 15000
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "testTimeout": 30000
   },
   "keywords": [],
   "author": "Kaustav Pal",

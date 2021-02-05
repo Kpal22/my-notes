@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const logger = require('../logger');
 const sharp = require('sharp');
 const Note = require('./note');
 
@@ -45,7 +44,7 @@ const userSchema = new mongoose.Schema({
         expiresAt: {
             type: Date,
             required: true,
-            default: () => new Date(Date.now() + (30 * 60 * 1000))
+            default: () => new Date(Date.now() + (60 * 60 * 1000))
         }
     }],
     avatar: {
@@ -68,10 +67,6 @@ const getError = error => {
     } else {
         error = { status: 400, message: 'Invalid Updates!' };
     }
-
-    // else if (errorMsg.includes('invalid updates')) {
-    //     error = { status: 400, message: 'Invalid Updates!' };
-    // }
     return error;
 }
 

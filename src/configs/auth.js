@@ -6,7 +6,7 @@ const validator = require('validator');
 const privateKEY = process.env.PRIVATE_KEY.replace(/\[n\]/g, '\n');
 const publicKEY = process.env.PUBLIC_KEY.replace(/\[n\]/g, '\n');
 
-const signOptions = { expiresIn: '30m', algorithm: 'RS256' };
+const signOptions = { expiresIn: '60m', algorithm: 'RS256' };
 
 const verifyOptions = { algorithm: ['RS256'] };
 
@@ -40,7 +40,6 @@ const auth = async (req, _res, next) => {
         } else {
             req.token = token;
             req.user = user;
-            await user.save();
             next();
         }
     } catch (err) {
