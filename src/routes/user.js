@@ -101,7 +101,7 @@ router.post('/login', async (req, res, next) => {
  */
 router.post('/logout', auth, (req, res) => {
     req.user.removeAuthToken(req.token);
-    res.send('Log out successful');
+    res.send({ message: 'Log Out Successful!' });
 });
 
 /**
@@ -123,7 +123,7 @@ router.post('/logout', auth, (req, res) => {
  */
 router.post('/logout/all', auth, (req, res) => {
     req.user.removeAuthToken();
-    res.send('All devices log out successful');
+    res.send({ message: 'All devices log out successful'});
 });
 
 /**
@@ -226,7 +226,7 @@ router.patch('/', auth, async (req, res, next) => {
 router.put('/', auth, async (req, res, next) => {
     try {
         await req.user.updatePassword(req.body);
-        res.send('Password Updated Successfully!');
+        res.send({ message: 'Password Updated Successfully!' });
     } catch (err) {
         next(err);
     }
@@ -302,7 +302,7 @@ router.post('/avatar', auth, async (req, res, next) =>
             next({ status: 400, message: err.message });
         } else {
             await req.user.setAvatar(req.file);
-            res.send('Avatar saved successfully');
+            res.send({ message: 'Avatar saved successfully'});
         }
     })
 );

@@ -19,11 +19,7 @@ const getError = error => {
 
 const save = async ({ name, email, password } = {}) => {
     try {
-        const user = new User({ name, email, password });
-        const token = genToken({ _id: user._id.toString() });
-        user.tokens.push({ token });
-        await user.save();
-        return { token };
+        return { name, email, ... await genTokenObj(new User({ name, email, password })) };
     } catch (err) {
         throw getError(err);
     }
@@ -31,15 +27,20 @@ const save = async ({ name, email, password } = {}) => {
 
 const login = async ({ email, password } = {}) => {
     try {
-        const user = await User.findByCredentials({email, password});
+        const user = await User.findByCredentials({ email, password });
         user.tokens = user.tokens.filter(token => token.expiresAt >= Date.now());
-        const token = genToken({ _id: user._id.toString() });
-        user.tokens.push({ token });
-        await user.save();
-        return { token };
+        return { name: user.name, email, ... await genTokenObj(user) };
     } catch (err) {
         throw getError(err);
     }
+}
+
+const genTokenObj = async user => {
+    const token = genToken({ _id: user._id.toString() });
+    user.tokens.push({ token });
+    await user.save();
+    const tokenExpiresOn = +user.tokens.find(userToken => userToken.token === token).expiresAt;
+    return ({ token, tokenExpiresOn });
 }
 
 module.exports = { save, login };

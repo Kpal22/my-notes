@@ -33,7 +33,7 @@ const router = new express.Router();
  *              401:
  *                  description: Authentication failed, auth token is expired/malformed/missing
  *              500:
- *                  description: Internal Server Error   
+ *                  description: Internal Server Error
  */
 router.post('/', auth, async (req, res, next) => {
     try {
@@ -86,7 +86,7 @@ router.post('/', auth, async (req, res, next) => {
  *              404:
  *                  description: No note found
  *              500:
- *                  description: Internal Server Error   
+ *                  description: Internal Server Error
  */
 router.get('/', auth, async (req, res, next) => {
     try {
@@ -128,7 +128,7 @@ router.get('/', auth, async (req, res, next) => {
  *              404:
  *                  description: No note found
  *              500:
- *                  description: Internal Server Error   
+ *                  description: Internal Server Error
  */
 router.patch('/:id', auth, async (req, res, next) => {
     try {
@@ -164,7 +164,7 @@ router.patch('/:id', auth, async (req, res, next) => {
  *              404:
  *                  description: No note found
  *              500:
- *                  description: Internal Server Error   
+ *                  description: Internal Server Error
  */
 router.delete('/:id', auth, async (req, res, next) => {
     try {

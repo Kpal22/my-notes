@@ -1,4 +1,3 @@
-console.log('Testing with proper mongodb connection, intending to run app without any internal server error');
 require('../src/db/mongoose');
 
 require('./models/user');

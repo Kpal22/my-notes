@@ -6,7 +6,7 @@ const validator = require('validator');
 const privateKEY = process.env.PRIVATE_KEY.replace(/\[n\]/g, '\n');
 const publicKEY = process.env.PUBLIC_KEY.replace(/\[n\]/g, '\n');
 
-const signOptions = { expiresIn: '60m', algorithm: 'RS256' };
+const signOptions = { expiresIn: Number.parseInt(process.env.EXPIRATION_TIME) , algorithm: 'RS256' };
 
 const verifyOptions = { algorithm: ['RS256'] };
 
@@ -17,6 +17,7 @@ const getError = err => {
         case 'invalid token':
         case 'jwt expired':
         case 'user not found':
+        case 'invalid signature':
             return { status: 401, message: 'Authentication Failed!' };
         default:
             logger.errorObj(err);

@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
         expiresAt: {
             type: Date,
             required: true,
-            default: () => new Date(Date.now() + (60 * 60 * 1000))
+            default: () => new Date(Date.now() + ( Number.parseInt(process.env.EXPIRATION_TIME) * 1000))
         }
     }],
     avatar: {
@@ -129,7 +129,6 @@ userSchema.methods.updatePassword = async function ({ oldPassword, newPassword }
 
 userSchema.methods.setAvatar = async function ({ buffer } = {}) {
     try {
-
         if (buffer) {
             const user = this;
             user.avatar = await sharp(buffer).resize({ width: 250, height: 250 }).png().toBuffer();
